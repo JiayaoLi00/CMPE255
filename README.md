@@ -28,23 +28,6 @@ One solution to address the vanishing or exploding gradients problem is a gradie
 
 We propose using small BERT initially for computational resource limitations as small BERT is the fastest and smallest model. For the first set, we are going to use the first 128 words in the resume for training time purposes. We will extend the text length to improve accuracy. We will have the following classes of resumes: 'Data Science', 'HR', 'Advocate', 'Arts', 'Web Designing', 'Mechanical Engineer', 'Sales', 'Health and fitness', 'Civil Engineer', 'Java Developer', 'Business Analyst', 'SAP Developer', 'Automation Testing', 'Electrical Engineering', 'Operations Manager', 'Python Developer', 'DevOps Engineer', 'Network Security Engineer', 'PMO', 'Database', 'Hadoop', 'ETL Developer', 'DotNet Developer', 'Blockchain', 'Testing’. We want to do a validation set of 20% of our total data and use 80% of the total data as training data. With 963 total resumes, this comes out to be a training set of 770 resumes and a validation set of 193 resumes. We will use Binary Cross Entropy to calculate our loss through 5 epochs.
 
-Data source
-
-https://www.kaggle.com/datasets/jillanisofttech/updated-resume-dataset
-
-Google drive folder 
-
-https://drive.google.com/drive/folders/1RnSYLtA1u1u6pcJPuWQJI_Rh6px6Q29q?usp=sharing
-
-Github Repositories 
-
-John Wang: https://github.com/johnwang21/cmpe255
-
-AJ Dela Cruz:  https://github.com/AJ-delaCruz/CMPE255-Team12 
-
-Jiayao Li: https://github.com/JiayaoLi00/cmpe255
-
-
 ## Reference
 
 [1] https://www.statista.com/statistics/873648/us-staffing-industry-market-size/
