@@ -1,8 +1,5 @@
 # CMPE255-Team12
 
-John Wang
-AJ Dela Cruz
-Jiayao Li
 ## Team 12
 
 ## Abstract
@@ -29,14 +26,7 @@ One solution to address the vanishing or exploding gradients problem is a gradie
 
 ## Solutions (Methodology)
 
-We propose using small BERT initially for computational resource limitations as small BERT is the fastest and smallest model. For the first set, we are going to use the first 128 words in the resume for training time purposes. We will extend the text length to improve accuracy. We will have the following classes of resumes: 'Data Science', 'HR', 'Advocate', 'Arts', 'Web Designing', 'Mechanical Engineer', 'Sales', 'Health and fitness', 'Civil Engineer', 'Java Developer', 'Business Analyst', 'SAP Developer', 'Automation Testing', 'Electrical Engineering', 'Operations Manager', 'Python Developer', 'DevOps Engineer', 'Network Security Engineer', 'PMO', 'Database', 'Hadoop', 'ETL Developer', 'DotNet Developer', 'Blockchain', 'Testing’. We want to do a validation set of 20% of our total data and use 80% of the total data as training data. With 963 total resumes, this comes out to be a training set of 770 resumes and a validation set of 193 resumes. We will use Binary Cross Entropy to calculate our loss through 5 epochs. Our model pipeline will look like the following:
-  
-## Results
-Future
-## Discussion
-Future
-## Conclusion
-Future
+We propose using small BERT initially for computational resource limitations as small BERT is the fastest and smallest model. For the first set, we are going to use the first 128 words in the resume for training time purposes. We will extend the text length to improve accuracy. We will have the following classes of resumes: 'Data Science', 'HR', 'Advocate', 'Arts', 'Web Designing', 'Mechanical Engineer', 'Sales', 'Health and fitness', 'Civil Engineer', 'Java Developer', 'Business Analyst', 'SAP Developer', 'Automation Testing', 'Electrical Engineering', 'Operations Manager', 'Python Developer', 'DevOps Engineer', 'Network Security Engineer', 'PMO', 'Database', 'Hadoop', 'ETL Developer', 'DotNet Developer', 'Blockchain', 'Testing’. We want to do a validation set of 20% of our total data and use 80% of the total data as training data. With 963 total resumes, this comes out to be a training set of 770 resumes and a validation set of 193 resumes. We will use Binary Cross Entropy to calculate our loss through 5 epochs.
 
 Data source
 
