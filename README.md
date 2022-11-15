@@ -1,6 +1,6 @@
 # CMPE255-Team12
 
-## Team 12
+### Team 12
 
 ## Abstract
 
