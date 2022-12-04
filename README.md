@@ -1,4 +1,4 @@
-# CMPE255-Team12
+# Resume Classification
 
 ### Team 12
 
