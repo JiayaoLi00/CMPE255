@@ -1,7 +1,5 @@
 # Resume Classification
 
-### Team 12
-
 ## Abstract
 
 In 2021, the recruiting industry was a 136 billion dollar industry1 in the United States alone.
@@ -20,7 +18,7 @@ both old and new and compare their performance. In doing so, we hope to not only
 better automated classification of resumes but to also get an understanding of the improvement of
 language classifications and why newer techniques such as transformers have dominated the space.
 
-## Intro
+## Introduction
 
 Recruiting suitable candidates for the job role is time-consuming but an important task. The number of applicants in the job market can be overwhelming. Especially with the different types of job roles existing along with the increasing number of applications from candidates. Resume classification is needed to make the process of selecting the appropriate candidates for the role easier. Resume classification will help recruiters identify suitable candidates based on their skill set according to the job descriptions. Other tools such as applicant tracking systems “help companies in the process of recruiting new professional figures or re-assigning resources [2].” They are extensively used in the recruitment process to find candidates with the required qualifications. However, applicant tracking systems require a manual evaluation that is time-consuming. Recruiters often need to ensure that the resume isn’t manipulated using keywords. This results in inefficiency in the recruitment process of selecting the appropriate candidates for the role. There is a need to categorize resumes based on the job descriptions. It would help separate the relevant resumes that the recruiters are looking for from the large amount of resumes that may not have the necessary qualifications.
 
@@ -107,6 +105,36 @@ zero-shot text completion endpoint, it also has a variety of embedding models wi
 We choose babbage-001 as our embedding model for its ability to capture text features, which is best-
 suited for resume classification tasks. We then utilized Random Forest as the classifier after feature
 embedding.
+
+### Discussion
+
+#### LSTM
+With a 70/30 split dataset (training/holdout), LSTM’s accuracy was only 44.3\%. Although LSTM fixes Recurent Neural Network’s (RNN) vanishing gradient problem. However, it still does not perform well when processing longer texts. The character limit of LSTM is only 50 characters. Since LSTM suffers from long sequences of text, it led to worst accuracy compared to the other models in this project. For example, Java Developer had the highest error. LSTM only resulted an accuracy of 44\%. I suspect the low accuracy was due to the number of epoch set on the model.
+
+#### TF-IDF + Logistic Regression
+With a 70/30 split dataset (training/holdout), TF-IDF - Logistic Regression was 98.9\% accurate. TF-IDF with Logistic Regression gave us the best accuracy compared to the other models. The Logistic Regression model predicted the category of resume. It gave us a 99\% accuracy rate using the test data. TF-IDF doesn’t have a character limit, so it performed better than GPT-3 and BERT. Only Java Developer and Testing were predicted wrong.
+
+#### TF-IDF + Random Forest
+TF-IDF - Random Forest gave us an accuracy of 97.1\%, which is the third highest among all models we have explored, slightly lower than using Logistic Regression as the classifier. The main difference between random forest and logistic regression is that random forest can be used for both regression and classification, while logistic regression could only be used for classification.
+
+#### TF-IDF + Multinominal Naive Bayes
+The accuracy for TF-IDF + Multinomial Naive Bayes on training data is 88.4\%, which is significantly lower than TF-IDF with the other two classifiers (random forest and logistic regression). One possible reason is that, Naive Bayes is a probabilistic classifier that makes strong assumptions about the independence of the features, which is usually not realistic.
+
+#### BERT
+The model worked well with a high accuracy of 96.1\% in the 70/30 testing/hold out set. The errors were Automation Testing accuracy: 5/8, DevOps Engineer accuracy: 16/17, DotNet Developer accuracy: 1/8. This seems to be because Automation testing, DevOps and DotNet Developer have very similar coding related requirements to each other and as such have similar keywords. When I dropped the trainin/hold out from 70/30 to 50/50, the accuracy went down to 88.6\%. This is expected because the training set got smaller. The errors also became more diverse to Mechanical Engineer accuracy: 13/20, Business Analyst accuracy: 8/14, SAP Developer accuracy: 0/12, Automation Testing accuracy: 3/13, DevOps Engineer accuracy: 25/27, ETL Developer accuracy: 14/20, DotNet Developer accuracy: 2/14 as the model was having a harder time determining categories from each other beyond just developers. The 512 word limit does not seem to have too much of an impact on the model as 96.1\% accuracy is quite high. The model took about 10 minutes to train which isn't too bad. This model is significantly better than the LSTM model (44.3\% accuracy.) This makes sense because both models have character limits, but the LSTM has a character limit of only 50 characters13.
+
+#### GPT-3 + Logistic
+With a 70/30 training/hold out set, this model performed unexpectedly poorly at only 88.6\% accuracy. This is lower accuracy than the TF-IDF + logistic model at 98.9\% accuracy. This could be because GPT3 has a maximum character limit of 2048 word tokens (question + answer). Our resumes are quite large (many of them are 2000+ words) so the GPT-3 may be unable to take advantage of all of this data. In contrast, TF-IDF has no character limit. Looking at the errors for GPT-3 logistic, the errors are in Automation Testing, Java Developer, DevOps engineer, Sap developer, Network Security Engineer, DotNet Engineer, Database, Operations Manager, Business Analyst, HR, Civil Engineer, and Mechanical Engineer. Unlike BERT in which the errors were limited to the developer resumes which were all very similar. For GPT-3, the errors were more broad as the algorithm struggles to classify more general resumes. 
+
+#### GPT-3 + Random Forest
+With random forest as the classifier, GPT-3 gave us an accuracy of 98.0\%, which is the second highest, slightly lower than TF-IDF + Logistic Regression by 0.9\%. One possible reason for the satisfactory performance is the complicated architecture of GPT-3, which involves multi-layers of transformer encoders with multi-attention head. In addition, GPT-3 was trained on huge amount of data, which helps it to perform well on various natural language processing tasks.
+
+## Conclusion
+
+From our experiments, we have seen some surprising findings. TF-IDF with logistic regression out performed GPT-3 with logistic regression. We believe this is because the newer transformer models have a character limit (512 for BERT and 2048 for GPT-3). Because our resumes are so long, TF-IDF was able to capitalize on that data while GPT-3 was not. However, we have also seen the opposite happen with TF-IDF with random forest as compared to GPT-3 with random forest. The GPT-3 model actually outperformed TF-IDF by 1\%. In this particular case, the richness of the TF-IDF encoding must have outweighed the fact that there is less data compared to the encoding for TF- IDF. The fact that it was only a 1\% difference can be attributed to the fact that the additional data available to TF-IDF helped offset the lack of richness in their encoding as compared to the transformer model.
+In terms of the classification models, logistic regression performed the best, followed by random forest and finally multinomial naive bayes. This was surprising to us because our data is very stratified (25 different classes) so we thought that a multinomial model such as multinominal naive bayes would have performed better. However, more complicated models are not always better and in our case, a simpler logistic model performed the best.
+Finally, the older pure deep models for encoding + classification (LSTM) are significantly worse than the new transformer models such as BERT. Not only was the accuracy significantly worse (44\% for LSTM compared to 96\% for BERT), but the program also ran significantly slower.
+All in all, we have learned that transformers are not a one size fits all solution to the language classification problem. Additionally, training transformers models is a time consuming task whereas TF-IDF is incredibly fast. To compound this cost problem, transformers such as GPT-3 not only have a large time cost, but also a large monetary cost to them.
 
 ## Reference
 
