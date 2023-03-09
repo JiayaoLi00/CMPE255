@@ -2,7 +2,7 @@
 
 ## Abstract
 
-In 2021, the recruiting industry was a 136 billion dollar industry1 in the United States alone.
+In 2021, the recruiting industry was a 136 billion dollar industry in the United States alone.
 However, sorting the most appropriate job for an applicant through a resume is a difficult process
 for both the applicant as well as the employer. This process is often manual and time consuming.
 In order to reduce the manual time and effort involved to properly classify an applicant, we propose
